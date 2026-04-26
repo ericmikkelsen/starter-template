@@ -11,7 +11,7 @@ This repo ships agent-skills workflows via Copilot custom chat modes.
 | Mode file | Activates |
 |---|---|
 | `spec.chatmode.md` | Spec-driven development — write `SPEC.md` before any code |
-| `plan.chatmode.md` | Break a spec into ordered tasks → `tasks/plan.md` + `tasks/todo.md` |
+| `plan.chatmode.md` | Break a spec into ordered tasks with acceptance criteria |
 | `build.chatmode.md` | Implement the next task — RED→GREEN→commit (TDD) |
 | `test.chatmode.md` | TDD cycle for features / Prove-It pattern for bugs |
 | `review.chatmode.md` | Five-axis code review: correctness, readability, architecture, security, performance |
@@ -28,8 +28,6 @@ The `.github/skills/` directory contains the underlying [agent skill](https://do
 - `code-review-and-quality` — five-axis review checklist
 - `git-workflow-and-versioning` — conventional commits, branching
 - `ci-cd-and-automation` — quality gate pipelines
-
-For a plain-language developer flow, see [docs/developer-workflow.md](./docs/developer-workflow.md).
 
 ## Conventional Commits & Versioning
 
