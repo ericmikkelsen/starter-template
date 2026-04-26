@@ -28,10 +28,12 @@ export async function sendSkillRequest(
     return {};
   }
 
+  // Send the skill instructions as a separate User message so that user input
+  // is isolated in its own message object and cannot interfere with the
+  // injected instructions (prompt-injection mitigation).
   const messages: vscode.LanguageModelChatMessage[] = [
-    vscode.LanguageModelChatMessage.User(
-      `<system>\n${systemPrompt}\n</system>\n\n${userMessage}`
-    ),
+    vscode.LanguageModelChatMessage.User(systemPrompt),
+    vscode.LanguageModelChatMessage.User(userMessage),
   ];
 
   try {
@@ -55,8 +57,7 @@ export async function sendSkillRequest(
 }
 
 /**
- * Builds the initial user message from a chat request, including the user's
- * prompt and any referenced files (e.g. workspace content from #file mentions).
+ * Builds the user message string from a chat request prompt.
  */
 export function buildUserMessage(request: vscode.ChatRequest): string {
   const parts: string[] = [];
