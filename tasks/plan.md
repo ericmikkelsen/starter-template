@@ -1,43 +1,49 @@
-# Plan: SMART Goal Instrumentation
+# Plan: Example Workflow Tasks
+
+This file is a starter example. Copy and adapt it for your feature.
 
 ## Motivation
 
-The skills in this repo declare SMART goals (e.g., "change map ≤ 10 nodes",
-"PR body ≤ 30 lines") but rely on humans to enforce them. This plan automates
-enforcement so the skills' cognitive-load principles are mechanically guaranteed.
+Use this plan to translate a feature spec into small, reviewable tasks with
+clear acceptance criteria.
 
 ## Acceptance Criteria
 
-- [ ] A script can validate a PR body file against `visual-pr-communication` SMART goals
-- [ ] The script exits non-zero when limits are exceeded
-- [ ] The script has unit tests (Jest)
-- [ ] The script is invokable from the command line: `node scripts/check-pr-body.js <file>`
+- [ ] Every task has clear, testable acceptance criteria
+- [ ] Tasks are ordered by dependency and can be implemented incrementally
+- [ ] Task status is tracked in `tasks/todo.md`
+- [ ] Scope notes capture non-goals and out-of-scope items
 
 ## Tasks
 
-### Task 1: PR body validator (`scripts/check-pr-body.js`)
+### Task 1: Define scope and constraints
 
 **Acceptance:**
-- Reads a Markdown PR body from a file path argument
-- Validates: ≤ 30 lines total, ≤ 10 Mermaid nodes, contains a `mermaid` block
-- Returns structured result `{ ok, violations: [...] }`
-- Exits 0 if `ok: true`, 1 otherwise
-- Has Jest tests covering: passing case, line-count violation, node-count violation, missing diagram
 
-### Task 2: Wire validator into CI
+- Capture user problem, goals, and non-goals
+- List technical constraints and assumptions
+- Confirm dependencies on existing components or services
 
-**Acceptance:**
-- GitHub Actions workflow runs validator on PR body when a PR is opened or synchronized
-- Failure surfaces a clear comment on the PR
-
-### Task 3: Document the validator in `visual-pr-communication`
+### Task 2: Implement smallest vertical slice
 
 **Acceptance:**
-- Add a "Mechanical enforcement" subsection pointing to the script
-- Link from the SMART Goals table to the script
 
-### Task 4: Skill testing environment (deferred)
+- Deliver the smallest end-to-end path that proves the approach
+- Add or update tests for expected behavior
+- Keep the change reviewable and focused
+
+### Task 3: Add quality gates and checks
 
 **Acceptance:**
-- A separate, optional testing environment is defined for validating skill outputs.
-- The starter template remains editor-agnostic and does not require VS Code API runtime dependencies.
+
+- Ensure lint, type-check, tests, and build steps are defined
+- Verify local checks match CI expectations
+- Document any required environment setup
+
+### Task 4: Prepare PR communication
+
+**Acceptance:**
+
+- Summarize what changed and why
+- Include validation evidence (tests, screenshots, or logs)
+- Highlight risks, rollback notes, and follow-up tasks

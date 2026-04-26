@@ -1,6 +1,8 @@
 # Todo
 
-- [x] Task 1: PR body validator (`scripts/check-pr-body.js`) with Node test runner
-- [ ] Task 2: Wire validator into CI workflow
-- [ ] Task 3: Document validator in `visual-pr-communication` SKILL.md
-- [x] Task 4: Skill output harness via Copilot SDK
+This file is a starter example. Copy and adapt it for your feature.
+
+- [ ] Task 1: Define scope and constraints
+- [ ] Task 2: Implement smallest vertical slice
+- [ ] Task 3: Add quality gates and checks
+- [ ] Task 4: Prepare PR communication
