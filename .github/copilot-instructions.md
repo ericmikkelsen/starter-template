@@ -49,3 +49,7 @@ The following [Addy Osmani agent skills](https://github.com/addyosmani/agent-ski
 ## Chat Modes
 Ten Copilot chat modes are available in `.github/chat-modes/`. Select a mode in the
 Copilot Chat UI to activate its workflow.
+
+This `.github/copilot-instructions.md` file is the authoritative source for Copilot
+instructions in this repository. Any mirrored copies must stay synchronized with this
+file to avoid conflicting guidance for contributors.
