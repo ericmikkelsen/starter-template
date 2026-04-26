@@ -4,9 +4,7 @@ A code repository starter template with conventional commits, automated versioni
 
 ## Agent Skills for Copilot
 
-This repo ships two ways to use the agent-skills workflows in Copilot Chat:
-
-### Option A — Custom Chat Modes (zero infrastructure)
+This repo ships agent-skills workflows via Copilot custom chat modes.
 
 `.github/chat-modes/` contains seven [Copilot custom chat modes](https://code.visualstudio.com/docs/copilot/chat/chat-modes) (VS Code 1.99+). Select a mode from the Copilot Chat UI to activate its workflow instructions:
 
@@ -20,39 +18,6 @@ This repo ships two ways to use the agent-skills workflows in Copilot Chat:
 | `ship.chatmode.md` | Pre-launch checklist → GO/NO-GO decision with rollback plan |
 | `simplify.chatmode.md` | Reduce complexity without changing behavior |
 
-### Option B — VS Code Extension (slash commands)
-
-`agent-skills-extension/` is a VS Code extension that registers `@agent-skills` as a Copilot Chat participant with the same seven workflows as slash commands:
-
-```
-@agent-skills /spec    → start spec-driven development
-@agent-skills /plan    → break spec into tasks
-@agent-skills /build   → implement next task with TDD
-@agent-skills /test    → TDD cycle or Prove-It bug fix
-@agent-skills /review  → five-axis code review
-@agent-skills /ship    → GO/NO-GO launch decision
-@agent-skills /simplify → reduce complexity
-```
-
-#### Install from VSIX (recommended for most users)
-
-```bash
-cd agent-skills-extension
-npm install
-npm run package          # produces agent-skills-0.1.0.vsix
-```
-
-Then in VS Code: **Extensions** → **⋯** → **Install from VSIX…** → select `agent-skills-0.1.0.vsix`.
-
-#### Install for development (F5 hot-reload)
-
-1. `cd agent-skills-extension && npm install`
-2. `npm run compile`
-3. Open the `agent-skills-extension/` folder in VS Code
-4. Press **F5** — a new Extension Development Host window opens with `@agent-skills` active
-
-See [`agent-skills-extension/README.md`](./agent-skills-extension/README.md) for full details and Marketplace publishing instructions.
-
 ## Agent Skills
 
 The `.github/skills/` directory contains the underlying [agent skill](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/create-skills) files loaded by the Copilot cloud agent and agent mode in VS Code:
@@ -63,6 +28,8 @@ The `.github/skills/` directory contains the underlying [agent skill](https://do
 - `code-review-and-quality` — five-axis review checklist
 - `git-workflow-and-versioning` — conventional commits, branching
 - `ci-cd-and-automation` — quality gate pipelines
+
+For a plain-language developer flow, see [docs/developer-workflow.md](./docs/developer-workflow.md).
 
 ## Conventional Commits & Versioning
 

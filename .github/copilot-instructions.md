@@ -48,5 +48,4 @@ The following [Addy Osmani agent skills](https://github.com/addyosmani/agent-ski
 
 ## Chat Modes
 Ten Copilot chat modes are available in `.github/chat-modes/`. Select a mode in the
-Copilot Chat UI to activate its workflow, or use the `@agent-skills` VS Code extension
-for slash command access (`/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/simplify`, `/story`, `/visualize`, `/rescue`).
+Copilot Chat UI to activate its workflow.

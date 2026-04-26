@@ -81,13 +81,20 @@ main
               └──→ story PR to main   Auto-generated summary from STORY.md
 ```
 
+### Execution Mode
+
+- Default: execute chapters sequentially.
+- Async is opt-in: only run work in parallel when the human explicitly marks a story as `async-eligible` and dependencies are clear.
+- If unsure, stay sequential.
+
 ### Step 1 — Plan the story
 
 1. Identify the complete set of concerns the feature touches.
 2. Assign each concern to exactly one chapter — chapters must not overlap.
 3. Order chapters so that each one can compile and pass tests independently (no chapter depends on a later chapter).
 4. Write `STORY.md` with all chapters listed.
-5. **Present the chapter list to the human for approval before creating any branches.**
+5. Set execution mode (`sequential` by default, `async-eligible` only when approved and dependency-safe).
+6. **Present the chapter list to the human for approval before creating any branches.**
 
 ### Step 2 — Create story branch
 

@@ -36,11 +36,8 @@ enforcement so the skills' cognitive-load principles are mechanically guaranteed
 - Add a "Mechanical enforcement" subsection pointing to the script
 - Link from the SMART Goals table to the script
 
-### Task 4: Skill output harness via Copilot SDK
+### Task 4: Skill testing environment (deferred)
 
 **Acceptance:**
-- `agent-skills-extension/scripts/run-skill.mjs` runs a named skill (story|visualize|rescue) against an input file using `@github/copilot-sdk`
-- Loads each skill's SYSTEM_PROMPT directly from the compiled extension code
-- Writes output to `tmp/skill-runs/<skill>-<timestamp>.md` for inspection
-- A `loadSkill(name)` helper has Jest unit tests verifying it returns the correct prompt for each of the three skills
-- npm script `skill:run` runs the harness; not wired into CI (uses paid API)
+- A separate, optional testing environment is defined for validating skill outputs.
+- The starter template remains editor-agnostic and does not require VS Code API runtime dependencies.
