@@ -86,16 +86,32 @@
     "build": "npm run compile",
     "lint": "eslint src --ext ts",
     "pretest": "npm run compile",
+    "test": "jest",
     "vscode:prepublish": "npm run compile",
     "package": "vsce package"
   },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.tsx?$": ["ts-jest", { "tsconfig": "tsconfig.test.json" }]
+    },
+    "testMatch": ["**/tests/**/*.test.ts"],
+    "moduleNameMapper": {
+      "^vscode$": "<rootDir>/tests/__mocks__/vscode.ts",
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    }
+  },
   "devDependencies": {
-    "@vscode/vsce": "^3.0.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.90.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
+    "@vscode/vsce": "^3.0.0",
     "eslint": "^8.0.0",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.9",
     "typescript": "^5.4.0"
   }
 }

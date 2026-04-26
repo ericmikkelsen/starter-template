@@ -112,8 +112,30 @@ git push -u origin chapter/<name>/<seq>-<slug>
 When all chapters are merged into the story branch:
 
 1. Open a PR from `story/<name>` to `main`.
-2. PR description is auto-generated from `STORY.md`: motivation, acceptance criteria, ordered chapter list with links to the merged chapter PRs.
-3. This PR should be a green, working feature — all tests pass.
+2. Use this template for the story PR description:
+
+```markdown
+## Story: [Title]
+
+[Motivation — one or two sentences copied from STORY.md]
+
+### Chapters merged
+
+| # | PR | What it delivered |
+|---|----|--------------------|
+| 01 | #[pr-number] — [chapter slug] | [one-sentence scope] |
+| 02 | #[pr-number] — [chapter slug] | [one-sentence scope] |
+
+### Acceptance criteria
+
+[Paste acceptance criteria from STORY.md with checkboxes filled in]
+
+### Reviewability
+- Total lines across all chapters: [sum]
+- Largest single chapter: [max]
+```
+
+3. This PR should be green — all tests pass. It is a merge commit, not a rebase.
 
 ## Slicing a Concern Into Chapters
 
@@ -136,3 +158,21 @@ Before creating any chapter branch:
 - [ ] Each chapter scope is one sentence and does not overlap with another chapter
 - [ ] Chapter sequence is valid — no chapter depends on a later chapter
 - [ ] Branch names follow the naming convention
+
+## SMART Goals
+
+These targets make story/chapter health measurable so teams can discuss and tune them:
+
+| Goal | Measure | Default target |
+|---|---|---|
+| Chapter PRs merged within 1 business day of opening | PR open → merge duration | ≤ 1 day |
+| Story branch total lifetime | Branch age from first commit | ≤ 5 business days |
+| No chapter diff exceeds the reviewability budget | `git diff --stat` line count and file count | 300 lines / 5 files |
+| Every chapter PR has a visual artifact | PR description contains a mermaid block | 100% |
+
+## Handling a Red Chapter
+
+If a chapter PR's CI is red:
+1. Fix the failure on the chapter branch before opening the next chapter branch.
+2. Do not start chapter N+1 until chapter N is merged — a failing chapter is a broken foundation.
+3. If the fix requires changes that logically belong in a later chapter, note that in a PR comment and split the work.

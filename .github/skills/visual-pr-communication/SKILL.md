@@ -122,4 +122,13 @@ Before pushing the branch:
 - [ ] Mermaid diagram renders (paste into a GitHub preview or VS Code Mermaid extension)
 - [ ] Before/After is written in plain English for a junior-developer audience
 - [ ] User-visible delta is one sentence
-- [ ] The whole artifact fits on one screen
+- [ ] The whole artifact fits on one screen (≤ 30 lines of PR description body)
+
+## SMART Goals
+
+| Goal | Measure | Target |
+|---|---|---|
+| Every chapter PR has a Mermaid change map | `grep '```mermaid'` in PR body | 100% of PRs |
+| Entire PR description fits one screen | Line count of PR body | ≤ 30 lines |
+| Change map within node limit | Count of nodes in diagram | ≤ 10 nodes |
+| Before/After uses behavioral language | No file paths or function names in bullets | 100% of bullets |

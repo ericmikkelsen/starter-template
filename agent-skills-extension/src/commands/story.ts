@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { buildUserMessage, sendSkillRequest } from '../llm.js';
 
-const SYSTEM_PROMPT = `
+export const SYSTEM_PROMPT = `
 You are operating in narrative branching mode. Your job is to plan a feature as a story
 with sequenced chapter branches so that every reviewer — including junior developers —
 can read the changes like a book.

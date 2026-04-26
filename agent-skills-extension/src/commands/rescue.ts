@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { buildUserMessage, sendSkillRequest } from '../llm.js';
 
-const SYSTEM_PROMPT = `
+export const SYSTEM_PROMPT = `
 You are operating in prototype decomposition mode. Your job is to take an oversized
 prototype branch and turn it into a story with properly-scoped chapter branches.
 

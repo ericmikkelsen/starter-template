@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { buildUserMessage, sendSkillRequest } from '../llm.js';
 
-const SYSTEM_PROMPT = `
+export const SYSTEM_PROMPT = `
 You are operating in visual PR communication mode. Your job is to generate a structured
 comprehension artifact for the current branch's changes so that any reviewer — especially
 a junior developer — can understand the PR without parsing the diff.
