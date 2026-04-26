@@ -5,5 +5,5 @@
     "moduleResolution": "Node",
     "outDir": "out-test"
   },
-  "include": ["src/**/*", "tests/**/*"]
+  "include": ["src/**/*", "tests/**/*", "scripts/**/*"]
 }

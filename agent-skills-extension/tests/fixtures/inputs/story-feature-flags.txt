@@ -1,0 +1,10 @@
+User wants a story for adding a feature flag system.
+
+Requirements:
+- A feature flag must be readable by both backend (Node) and frontend (browser).
+- Flags can be boolean or string-valued.
+- Source of truth is a JSON file in the repo, with environment-variable overrides.
+- A flag check should never fail the request — unknown flags resolve to a default.
+- Tests must cover: missing file, malformed JSON, env override, default fallback.
+
+Please plan this as a story with chapters.
