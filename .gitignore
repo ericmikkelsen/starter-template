@@ -16,7 +16,6 @@ out/
 npm-debug.log*
 
 # Editor
-.vscode/settings.json
 .idea/
 *.swp
 *.swo
