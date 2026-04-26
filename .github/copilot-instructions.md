@@ -38,12 +38,15 @@
 The following [Addy Osmani agent skills](https://github.com/addyosmani/agent-skills) are available in `.github/skills/`:
 - `git-workflow-and-versioning` — Commit discipline, branching strategy, conventional commits
 - `ci-cd-and-automation` — Quality gate pipelines, GitHub Actions patterns
-- `code-review-and-quality` — Five-axis review checklist
+- `code-review-and-quality` — Five-axis review checklist with configurable reviewability budget
 - `test-driven-development` — TDD cycle and Prove-It pattern for bug fixes
 - `spec-driven-development` — Spec-before-code workflow with human review gates
 - `incremental-implementation` — Thin vertical slices, scope discipline, rollback-friendly changes
+- `narrative-branching` — Story/chapter branch structure for readable, reviewable AI-generated code
+- `visual-pr-communication` — Mermaid change map, before/after narrative, junior-dev-friendly PR descriptions
+- `prototype-decomposition` — Two-phase rescue of oversized prototype branches into story and chapters
 
 ## Chat Modes
-Seven Copilot chat modes are available in `.github/chat-modes/`. Select a mode in the
+Ten Copilot chat modes are available in `.github/chat-modes/`. Select a mode in the
 Copilot Chat UI to activate its workflow, or use the `@agent-skills` VS Code extension
-for slash command access (`/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/simplify`).
+for slash command access (`/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`, `/simplify`, `/story`, `/visualize`, `/rescue`).

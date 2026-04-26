@@ -63,6 +63,18 @@
           {
             "name": "simplify",
             "description": "Reduce code complexity without changing behavior — one change at a time with test verification"
+          },
+          {
+            "name": "story",
+            "description": "Plan a feature as a story with sequenced chapter branches — structured for human reviewers"
+          },
+          {
+            "name": "visualize",
+            "description": "Generate a Mermaid change map and before/after narrative for a PR — written for junior developers"
+          },
+          {
+            "name": "rescue",
+            "description": "Decompose an oversized prototype branch into a story with reviewable chapter branches"
           }
         ]
       }

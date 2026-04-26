@@ -6,6 +6,9 @@ import { handleTest } from './commands/test.js';
 import { handleReview } from './commands/review.js';
 import { handleShip } from './commands/ship.js';
 import { handleSimplify } from './commands/simplify.js';
+import { handleStory } from './commands/story.js';
+import { handleVisualize } from './commands/visualize.js';
+import { handleRescue } from './commands/rescue.js';
 
 const PARTICIPANT_ID = 'agent-skills.assistant';
 
@@ -24,6 +27,9 @@ const COMMAND_HANDLERS: Record<string, CommandHandler> = {
   review: handleReview,
   ship: handleShip,
   simplify: handleSimplify,
+  story: handleStory,
+  visualize: handleVisualize,
+  rescue: handleRescue,
 };
 
 export function activate(context: vscode.ExtensionContext): void {
@@ -71,6 +77,9 @@ function handleHelp(stream: vscode.ChatResponseStream): vscode.ChatResult {
       '| `/review` | Five-axis code review: correctness, readability, architecture, security, performance |',
       '| `/ship` | Pre-launch checklist → GO/NO-GO decision with rollback plan |',
       '| `/simplify` | Reduce code complexity without changing behavior |',
+      '| `/story` | Plan a feature as a story with sequenced chapter branches |',
+      '| `/visualize` | Generate a Mermaid change map and before/after narrative for a PR |',
+      '| `/rescue` | Decompose an oversized prototype branch into story and chapter branches |',
       '',
       'Example: `@agent-skills /spec` — then describe what you want to build.',
     ].join('\n')
