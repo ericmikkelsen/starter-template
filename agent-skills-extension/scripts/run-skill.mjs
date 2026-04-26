@@ -73,7 +73,7 @@ async function main() {
 	let allEvents = [];
 	try {
 		const session = await client.createSession({
-			model: process.env.COPILOT_MODEL ?? 'gpt-5',
+			model: process.env.COPILOT_MODEL ?? 'claude-sonnet-4.5',
 			onPermissionRequest: approveAll,
 			systemMessage: { mode: 'replace', content: systemPrompt },
 			...(gitHubToken ? { gitHubToken } : {}),
