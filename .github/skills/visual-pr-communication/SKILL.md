@@ -25,6 +25,16 @@ These rules are grounded in how the human brain actually processes unfamiliar co
 
 **BLUF — bottom line up front (speech communication).** State the most important fact before asking the audience to process supporting detail. The entire three-part artifact applies this principle at the PR level: the reviewer gets context, motivation, and scope *before* they open the diff. Without the artifact, reviewers must derive all of that by reading code bottom-up — the reverse of how humans efficiently process information.
 
+## Why This Matters After Merge
+
+The three-part artifact is optimized for the *immediate* review session — the day the PR is opened. But code outlives reviews. Six months later, a junior developer onboarding, or the original author returning after context decay, needs the same cognitive scaffolding.
+
+**Spacing effects (Cepeda et al., 2006).** Humans retain information better when they encounter it multiple times over days and weeks. A code change encountered once during review leaves a weaker trace than encountering the same explanation again during future maintenance.
+
+**Durability.** The Before/After narrative in the PR description is durable — it survives in GitHub, searchable, linkable. Future readers can activate the same schema the original reviewer did. Without it, future readers pay the full cognitive cost of reconstructing context from code alone.
+
+This is why the Before/After section *must* be behavioral and jargon-free: you are writing not just for today's reviewer, but for future maintainers who don't have the author's context.
+
 ## When to Use
 
 - Opening any chapter branch PR (required)
