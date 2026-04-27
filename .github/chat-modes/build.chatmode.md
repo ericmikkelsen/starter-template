@@ -49,12 +49,23 @@ If any step fails, fix it before committing.
 
 Clean up the implementation while keeping all tests green. Remove duplication, improve names, simplify logic.
 
+### Step 6.5 — Documentation pass
+
+Before committing, add maintainability docs in changed code:
+
+- Add JSDoc to exported functions, classes, and types touched by this task.
+- Add clarifying comments for non-obvious logic, edge-case handling, and tradeoffs.
+- Keep comments brief and focused on _why_, not restating obvious code.
+- Write comments like a clear presentation aid: orient the reader, explain the idea, and avoid narrating syntax.
+
 ### Step 7 — Commit
 
 Commit with a conventional commit message:
 ```
 feat(scope): short description of what was implemented
 ```
+
+The commit subject should communicate the idea of the slice clearly. Across a chapter, commit messages should read like a coherent progression, not a pile of unrelated edit notes.
 
 ### Step 8 — Mark complete and move on
 
@@ -81,5 +92,8 @@ After each task:
 - [ ] Build succeeds
 - [ ] Type checking passes
 - [ ] Linting passes
+- [ ] JSDoc added/updated for touched exported APIs
+- [ ] Clarifying comments added for non-obvious logic
+- [ ] Commit message communicates the slice's idea clearly
 - [ ] Task committed with conventional commit message
 - [ ] Task checked off in `tasks/todo.md`
