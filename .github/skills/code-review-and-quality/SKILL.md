@@ -51,21 +51,23 @@ Team-wide limits are stored in `.github/review-config.json`:
 
 ```json
 {
-  "reviewabilityBudget": {
-    "maxLinesPerChapter": 300,
-    "maxFilesPerChapter": 5
-  }
+	"reviewabilityBudget": {
+		"maxLinesPerChapter": 300,
+		"maxFilesPerChapter": 5,
+		"excludeFromBudget": ["package-lock.json"]
+	}
 }
 ```
 
 **Before finalising any branch**, check the staged diff against both limits:
 
 ```bash
-git diff --staged --stat
+git diff --staged --stat -- . ':(exclude)package-lock.json'
 ```
 
 - If lines changed exceeds `maxLinesPerChapter` → split the branch.
 - If files touched exceeds `maxFilesPerChapter` → split the branch.
+- Exclusions listed in `excludeFromBudget` are not counted toward either threshold.
 
 Both limits matter independently: a 300-line change spread across 15 files is just as hard to review as a 1,000-line change in one file. Lines measure volume; files measure cognitive scatter.
 

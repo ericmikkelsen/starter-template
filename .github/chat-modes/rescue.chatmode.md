@@ -57,10 +57,10 @@ Output a draft for human review:
 
 ## Proposed Chapters
 
-| # | Branch | Files | Est. lines | Rationale |
-|---|--------|-------|-----------|-----------|
-| 01 | `chapter/<story>/01-<slug>` | … | ~N | [Why first] |
-| 02 | `chapter/<story>/02-<slug>` | … | ~N | [Depends on 01] |
+| #   | Branch                              | Files | Est. lines | Rationale       |
+| --- | ----------------------------------- | ----- | ---------- | --------------- |
+| 01  | `chapter/<story>/01-<chapter-name>` | …     | ~N         | [Why first]     |
+| 02  | `chapter/<story>/02-<chapter-name>` | …     | ~N         | [Depends on 01] |
 
 ## Coupling Notes
 [Any cross-chapter dependencies that require a specific merge order.]
@@ -108,7 +108,7 @@ For each chapter:
 
 ```bash
 git checkout story/<name>
-git checkout -b chapter/<name>/<seq>-<slug>
+git checkout -b chapter/<name>/<chapter-number>-<chapter-name>
 ```
 
 Apply this chapter's changes. Choose the appropriate approach:
@@ -124,9 +124,9 @@ Then verify and commit:
 
 ```bash
 npm test   # must pass before committing
-git diff --staged --stat   # check against reviewability budget
+git diff --staged --stat -- . ':(exclude)package-lock.json'   # check against reviewability budget
 git commit -m "<type>(<scope>): <chapter description>"
-git push -u origin chapter/<name>/<seq>-<slug>
+git push -u origin chapter/<name>/<chapter-number>-<chapter-name>
 ```
 
 Use the `visual-pr-communication` skill to generate the PR description. Open the PR targeting `story/<name>`. Wait for it to be reviewed and merged before starting the next chapter.

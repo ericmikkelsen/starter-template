@@ -33,7 +33,7 @@ Phase 1: ANALYZE ──→ Human gate ──→ Phase 2: RESTRUCTURE
 ### 1.1 Measure the prototype
 
 ```bash
-git diff main...HEAD --stat
+git diff main...HEAD --stat -- . ':(exclude)package-lock.json'
 git log main..HEAD --oneline
 ```
 
@@ -41,7 +41,7 @@ Report:
 - Total lines changed (added + removed)
 - Total files touched
 - Number of commits on the branch
-- Whether the branch exceeds the reviewability budget
+- Whether the branch exceeds the reviewability budget (excluding any files listed in `excludeFromBudget`, such as `package-lock.json`)
 
 ### 1.2 Cluster the changes
 
@@ -77,11 +77,11 @@ Output a draft `STORY.md` that proposes the chapter breakdown:
 
 ## Proposed Chapters
 
-| # | Suggested branch name | Files | Est. lines | Rationale |
-|---|----------------------|-------|-----------|-----------|
-| 01 | `chapter/<story>/01-<slug>` | file1.ts, file2.ts | ~80 | Foundation — must land first because chapters 02–03 depend on it |
-| 02 | `chapter/<story>/02-<slug>` | file3.ts, file4.ts | ~120 | API layer — depends on 01 |
-| 03 | `chapter/<story>/03-<slug>` | file5.ts | ~60 | UI — depends on 02 |
+| #   | Suggested branch name               | Files              | Est. lines | Rationale                                                        |
+| --- | ----------------------------------- | ------------------ | ---------- | ---------------------------------------------------------------- |
+| 01  | `chapter/<story>/01-<chapter-name>` | file1.ts, file2.ts | ~80        | Foundation — must land first because chapters 02–03 depend on it |
+| 02  | `chapter/<story>/02-<chapter-name>` | file3.ts, file4.ts | ~120       | API layer — depends on 01                                        |
+| 03  | `chapter/<story>/03-<chapter-name>` | file5.ts           | ~60        | UI — depends on 02                                               |
 
 ## Coupling Notes
 [Any cross-chapter dependencies that require a specific merge order.]
@@ -132,7 +132,7 @@ For each chapter in sequence:
 
 ```bash
 git checkout story/<name>
-git checkout -b chapter/<name>/<seq>-<slug>
+git checkout -b chapter/<name>/<chapter-number>-<chapter-name>
 ```
 
 Apply the changes belonging to this chapter. There are two approaches:
@@ -151,7 +151,7 @@ After applying:
 ```bash
 npm test   # must pass before committing
 git commit -m "<type>(<scope>): <chapter description>"
-git push -u origin chapter/<name>/<seq>-<slug>
+git push -u origin chapter/<name>/<chapter-number>-<chapter-name>
 # Open PR targeting story/<name>
 # Use visual-pr-communication skill to write the PR description
 ```
@@ -189,7 +189,7 @@ Prototype branches often have tangled changes (one commit touches three concerns
 Before declaring the restructure complete:
 
 - [ ] Every line from the prototype is accounted for in some chapter
-- [ ] No chapter exceeds the reviewability budget (300 lines / 5 files per `.github/review-config.json`)
+- [ ] No chapter exceeds the reviewability budget (300 lines / 5 files per `.github/review-config.json`, excluding `package-lock.json`)
 - [ ] Each chapter's tests pass independently
 - [ ] The story branch end state matches the prototype end state (`git diff` is empty or intentional)
 - [ ] The prototype branch is still intact and reachable (fallback available)
@@ -197,10 +197,10 @@ Before declaring the restructure complete:
 
 ## SMART Goals
 
-| Goal | Measure | Target |
-|---|---|---|
-| Complete Phase 1 (analysis + proposal) | Time from `/rescue` invocation to human gate | ≤ 2 hours |
-| Complete Phase 2 (restructure) after approval | Time from approval to all chapter PRs open | ≤ 2 business days |
-| No chapter exceeds the reviewability budget | `git diff --stat` per chapter | 300 lines / 5 files |
-| Prototype branch preserved until story merges to main | Branch still exists in `git branch -r` | 100% |
-| All proposed chapters have a rationale | "Rationale" column filled in proposed STORY.md table | 100% of chapters |
+| Goal                                                  | Measure                                                       | Target              |
+| ----------------------------------------------------- | ------------------------------------------------------------- | ------------------- |
+| Complete Phase 1 (analysis + proposal)                | Time from `/rescue` invocation to human gate                  | ≤ 2 hours           |
+| Complete Phase 2 (restructure) after approval         | Time from approval to all chapter PRs open                    | ≤ 2 business days   |
+| No chapter exceeds the reviewability budget           | `git diff --stat` per chapter (excluding `package-lock.json`) | 300 lines / 5 files |
+| Prototype branch preserved until story merges to main | Branch still exists in `git branch -r`                        | 100%                |
+| All proposed chapters have a rationale                | "Rationale" column filled in proposed STORY.md table          | 100% of chapters    |
