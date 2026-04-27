@@ -29,15 +29,15 @@ The chapter structure is not an aesthetic choice — it maps directly to how hum
 ## Branch Naming
 
 ```
-story/<short-name>                        story/user-auth
-chapter/<story-name>/<seq>-<slug>         chapter/user-auth/01-add-schema
-                                          chapter/user-auth/02-add-api
-                                          chapter/user-auth/03-add-ui
+story/<story-name>                                  story/user-auth
+chapter/<story-name>/<chapter-number>-<chapter-name> chapter/user-auth/01-add-schema
+                                                     chapter/user-auth/02-add-api
+                                                     chapter/user-auth/03-add-ui
 ```
 
 - Sequence numbers are zero-padded two digits (`01`, `02`, …) so `ls` and GitHub show chapters in reading order.
-- Story names and chapter slugs use `kebab-case`.
-- Chapter slugs name the *concern*, not the layer: `add-schema` not `backend-changes`.
+- Story names and chapter names use `kebab-case`.
+- Chapter names should describe the concern, not the layer: `add-schema` not `backend-changes`.
 
 ## The STORY.md File
 
@@ -55,10 +55,10 @@ Create `STORY.md` at the root of the story branch before any chapter branch is c
 
 ## Chapters
 
-| # | Branch | One-sentence scope |
-|---|--------|--------------------|
-| 01 | `chapter/<story>/01-<slug>` | [What this chapter does and nothing more] |
-| 02 | `chapter/<story>/02-<slug>` | [What this chapter does and nothing more] |
+| #   | Branch                              | One-sentence scope                        | Files (est.) | Lines (est.) | Budget |
+| --- | ----------------------------------- | ----------------------------------------- | ------------ | ------------ | ------ |
+| 01  | `chapter/<story>/01-<chapter-name>` | [What this chapter does and nothing more] | ~N           | ~N           | ✅/⚠️  |
+| 02  | `chapter/<story>/02-<chapter-name>` | [What this chapter does and nothing more] | ~N           | ~N           | ✅/⚠️  |
 
 ## Out of Scope
 [Anything that is explicitly NOT part of this story. Prevents scope creep.]
@@ -90,11 +90,20 @@ main
 ### Step 1 — Plan the story
 
 1. Identify the complete set of concerns the feature touches.
-2. Assign each concern to exactly one chapter — chapters must not overlap.
+2. Assign each concern to exactly one chapter. Two tightly related concerns may share one chapter only if the scope sentence names both concerns and states why they are combined.
 3. Order chapters so that each one can compile and pass tests independently (no chapter depends on a later chapter).
-4. Write `STORY.md` with all chapters listed.
-5. Set execution mode (`sequential` by default, `async-eligible` only when approved and dependency-safe).
-6. **Present the chapter list to the human for approval before creating any branches.**
+4. Estimate files and lines per chapter and run a budget check pass against `.github/review-config.json` limits.
+5. If a chapter is likely over budget, split or re-scope it before approval.
+6. Write `STORY.md` with all chapters listed.
+7. Set execution mode (`sequential` by default, `async-eligible` only when approved and dependency-safe).
+8. **Present the chapter list to the human for approval before creating any branches.**
+
+Budget check pass rules during story generation:
+
+- Use rough planning estimates (`Files (est.)`, `Lines (est.)`) per chapter.
+- Mark each chapter `✅` (within budget) or `⚠️` (likely over budget).
+- Exclude files listed in `excludeFromBudget` (for example `package-lock.json`).
+- Do not ask for chapter approval until any `⚠️` chapter has a proposed split/rescope.
 
 ### Step 2 — Create story branch
 
@@ -112,16 +121,30 @@ For each chapter:
 
 ```bash
 git checkout story/<name>
-git checkout -b chapter/<name>/<seq>-<slug>
+git checkout -b chapter/<name>/<chapter-number>-<chapter-name>
+# run plan mode for this chapter before coding
 # implement only what the chapter title says
+# run review mode before committing to catch issues early
 # use visual-pr-communication skill to generate PR description
-git push -u origin chapter/<name>/<seq>-<slug>
-# open PR targeting story/<name>
+git push -u origin chapter/<name>/<chapter-number>-<chapter-name>
+test -n "$(git ls-remote --exit-code --heads origin chapter/<name>/<chapter-number>-<chapter-name>)"
+gh pr create --base story/<name> --head chapter/<name>/<chapter-number>-<chapter-name> --title "docs(chapter): <chapter-number>-<chapter-name>" --body "Chapter PR for <name>."
+gh pr list --base story/<name> --head chapter/<name>/<chapter-number>-<chapter-name> --state open
 ```
+
+Within each chapter, use this gate sequence before committing:
+
+1. Plan the chapter work (`plan` mode) into small, verifiable tasks.
+2. Implement tasks incrementally.
+3. Review the chapter (`review` mode) before creating the commit.
+4. Make a good-faith reviewability budget check with `git diff --staged --stat -- . ':(exclude)package-lock.json'` and split if clearly over budget.
+
+Only report a chapter as created when the `gh pr list` command above returns a non-empty result for the expected base/head.
 
 **Chapter rules:**
 - A chapter must not touch files that belong to a different chapter's concern.
 - A chapter must not anticipate or partially implement the next chapter.
+- A chapter should run `plan` and `review` before committing so feedback is addressed within the chapter branch.
 - When a chapter is merged, delete its branch.
 
 ### Step 4 — Merge story to main
@@ -166,15 +189,26 @@ Slice **horizontally by concern**, not vertically by layer:
 
 When uncertain whether something belongs in this chapter or the next, it goes in the next.
 
+Chapter scope can include two related concerns in one sentence, but it must explicitly state both concerns and the rationale for combining them.
+
 ## Verification
 
 Before creating any chapter branch:
 
 - [ ] `STORY.md` exists on the story branch with all chapters listed
 - [ ] Human has approved the chapter breakdown
-- [ ] Each chapter scope is one sentence and does not overlap with another chapter
+- [ ] Each chapter scope is one sentence, and any combined concerns explicitly state both concerns and rationale
 - [ ] Chapter sequence is valid — no chapter depends on a later chapter
+- [ ] Each chapter has estimated files/lines and a budget pass/fail marker
 - [ ] Branch names follow the naming convention
+
+Before reporting completion:
+
+- [ ] Story branch is pushed to origin
+- [ ] Each chapter branch is pushed to origin
+- [ ] Each chapter PR targets `story/<name>`
+- [ ] Each chapter had a `plan` pass and a `review` pass before commit
+- [ ] Each chapter included a good-faith budget check before commit
 
 ## SMART Goals
 
